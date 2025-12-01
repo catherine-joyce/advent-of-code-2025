@@ -14,20 +14,22 @@ def get_new_number_part_2(numbers, current_number, text_input):
         number = int(number_string.group())
         index = (current_number - number) % 100
         new_number = numbers[index] 
-        if current_number != 0 and (number % 100) > current_number:
+        if current_number != 0 and (current_number - (number % 100)) < 0:
             zero_count = 1
         else:
             zero_count = 0
-        zero_count = zero_count + (number // 100)
+        zero_count += (number // 100)
         return new_number, zero_count
     elif 'R' in text_input:
         number_string = re.search(r"\d+", text_input)
         number = int(number_string.group())
-        index = (number + current_number) % 100
+        index = (current_number + number) % 100
         new_number = numbers[index] 
-        zero_count = ((current_number + number) // 100)
-        if new_number == 0:
-            zero_count = zero_count - 1
+        if current_number != 0 and (current_number + (number % 100)) > 100:
+            zero_count = 1
+        else:
+            zero_count = 0
+        zero_count += (number // 100)
         return new_number, zero_count
 
 def get_instructions_input():
