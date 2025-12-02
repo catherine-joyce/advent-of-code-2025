@@ -26,7 +26,7 @@ def get_number_of_zeros_part_2(current_number, list_input):
         current_number, zero_number = get_new_number_part_2(current_number, element)
         zero_count += zero_number
         if current_number == 0:
-            zero_count = zero_count + 1
+            zero_count += 1
     return zero_count
 
 
