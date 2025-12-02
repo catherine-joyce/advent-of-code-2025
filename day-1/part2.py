@@ -9,28 +9,19 @@ def create_numbers_list():
 
 
 def get_new_number_part_2(numbers, current_number, text_input):
+    zero_count = 0
+    number_string = re.search(r"\d+", text_input)
+    number = int(number_string.group())
     if 'L' in text_input:
-        number_string = re.search(r"\d+", text_input)
-        number = int(number_string.group())
         index = (current_number - number) % 100
-        new_number = numbers[index] 
         if current_number != 0 and (current_number - (number % 100)) < 0:
             zero_count = 1
-        else:
-            zero_count = 0
-        zero_count += (number // 100)
-        return new_number, zero_count
     elif 'R' in text_input:
-        number_string = re.search(r"\d+", text_input)
-        number = int(number_string.group())
         index = (current_number + number) % 100
-        new_number = numbers[index] 
         if current_number != 0 and (current_number + (number % 100)) > 100:
             zero_count = 1
-        else:
-            zero_count = 0
-        zero_count += (number // 100)
-        return new_number, zero_count
+    zero_count += (number // 100)
+    return numbers[index], zero_count
 
 def get_instructions_input():
     return list(stdin.read().split())
