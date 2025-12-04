@@ -24,32 +24,25 @@ def check_adjacent_squares(grid, row, square_position):
         adjacent_squares_list.append(grid[position[0]][position[1]])
     return adjacent_squares_list
 
-def get_num_of_rolls(grid):
+def get_num_of_rolls_and_remove(grid):
     number_of_rolls = 0
-    positions_list = []
     for row in range(len(grid)):
         for square in range(len(grid[row])):
             if grid[row][square] == "@":
                 adjacent_squares_list = check_adjacent_squares(grid, row, square) 
                 if len([x for x in adjacent_squares_list if x == "@"]) < 4:
                     number_of_rolls += 1
-                    positions_list.append([row, square])
-    return number_of_rolls, positions_list
-
-def remove_rolls(grid, positions_list):
-    for position in positions_list:
-        grid[position[0]][position[1]] = "."
-    return grid
+                    grid[row][square] = "."
+    return number_of_rolls
 
 def get_total_rolls(grid):
     done = False
     total = 0
     while not done:
-        number_of_rolls, positions_list = get_num_of_rolls(grid)
+        number_of_rolls = get_num_of_rolls_and_remove(grid)
         total += number_of_rolls
         if number_of_rolls == 0:
             done = True
-        grid = remove_rolls(grid, positions_list)
     return total
 
 
