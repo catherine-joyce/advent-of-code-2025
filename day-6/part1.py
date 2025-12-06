@@ -1,7 +1,7 @@
 from sys import stdin
 import operator
 
-def get_instructions_input():
+def get_input():
     overall_list = []
     for line in stdin:
         overall_list.append(list(line.split()))
@@ -28,6 +28,6 @@ def get_total_all_columns(input):
 
 
 if __name__ == "__main__":
-    input = get_instructions_input()
+    input = get_input()
     result = get_total_all_columns(input)
     print(result)
