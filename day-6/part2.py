@@ -8,33 +8,43 @@ def get_instructions_input():
         overall_list.append(line_list)
     return overall_list
 
+def get_list_of_columns_from_input(input):
+    string_list = []
+    for i in range(len(input[0])-1 , -1, -1):
+        total_string = ""
+        for j in range(len(input)):
+            total_string = total_string + input[j][i]
+        string_list.append(total_string)
+    return string_list
+
 def get_operator(operator_string):
     if operator_string == '*':
         return operator.mul
     elif operator_string == '+':
         return operator.add
-
-def calculate_column(input, column_number):
-    result = int(input[0][column_number])
-    for i in range(1, len(input) - 1):
-        operator_function = get_operator(input[-1][column_number])
-        result = operator_function(result, int(input[i][column_number]))
-    return result
-
-def get_total_all_columns(input):
+    
+def get_total_from_columns_list(columns_list):
+    i = 0
+    numbers_list = []
     total = 0
-    for i in range(len(input[0])):
-        total += calculate_column(input, i)
+    while i <= len(columns_list):
+            item = columns_list[i]
+            if '+' in item or '*' in item:
+                numbers_list.append(int(item[0:-1]))
+                operator_function = get_operator(item[-1])
+                result = numbers_list[0]
+                for x in range(1, len(numbers_list)):
+                   result = operator_function(result, numbers_list[x])
+                total += result
+                numbers_list = []
+                i += 2
+            else:
+                numbers_list.append(int(item))
+                i += 1
     return total
-
 
 if __name__ == "__main__":
     input = get_instructions_input()
-    print(input)
-
-# overall_list.append(list(line))
-
-[['1', '2', '3', ' ', '3', '2', '8', ' ', ' ', '5', '1', ' ', '6', '4', ' '], 
- [' ', '4', '5', ' ', '6', '4', ' ', ' ', '3', '8', '7', ' ', '2', '3', ' '], 
- [' ', ' ', '6', ' ', '9', '8', ' ', ' ', '2', '1', '5', ' ', '3', '1', '4'], 
- ['*', ' ', ' ', ' ', '+', ' ', ' ', ' ', '*', ' ', ' ', ' ', '+', ' ', ' ']]
+    columns_list = get_list_of_columns_from_input(input)
+    result = get_total_from_columns_list(columns_list)
+    print(result)
