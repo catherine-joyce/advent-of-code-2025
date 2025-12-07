@@ -31,18 +31,43 @@ test_data = {
 
 def create_edges_list(test_data):
     edges = []
-    for i in range(1, 3):
+    edges_set = set()
+    for i in range(1, 4):
         for splitter_position, beam_positions in test_data[i].items():
             current_beam_positions = test_data[i][splitter_position]["beam_positions"]
-            for below_row_splitter_position, below_row_beam_positions in test_data[i+1].items():
-                if below_row_splitter_position in current_beam_positions:
+            if i == len(test_data):
+                for position in current_beam_positions:
                     start = f"{i}{splitter_position}"
-                    end = f"{i+1}{below_row_splitter_position}"
+                    end = f"{8}{position}"
+                    new_edge = [int(start), int(end)]
+                    if new_edge not in edges:
+                        edges.append([int(start), int(end)])
+                        edges_set.add(int(start))
+                        edges_set.add(int(end))
+            else: 
+                for below_row_splitter_position, below_row_beam_positions in test_data[i+1].items():
+                    if below_row_splitter_position in current_beam_positions:
+                        start = f"{i}{splitter_position}"
+                        end = f"{i+1}{below_row_splitter_position}"
+                        new_edge = [int(start), int(end)]
+                        if new_edge not in edges:
+                            edges.append([int(start), int(end)])
+                            edges_set.add(int(start))
+                            edges_set.add(int(end))
+        for position in current_beam_positions:
+            potential_node = int(f"{i+1}{position}")
+            if potential_node not in edges_set:
+                start = f"{i}{splitter_position}"
+                end = f"{8}{position}"
+                new_edge = [int(start), int(end)]
+                if new_edge not in edges:
                     edges.append([int(start), int(end)])
+                    edges_set.add(int(start))
+                    edges_set.add(int(end))
     return edges
 
-edges_list = create_edges_list(test_data)
-print(edges_list) 
+newest_edges_list = create_edges_list(test_data)
+print(newest_edges_list) 
 
 
     # for i in range(len(data), 1, -1):
