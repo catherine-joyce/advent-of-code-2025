@@ -1,15 +1,15 @@
 from sys import stdin
 
+
 def create_row_dictionary_splitter_beam_positions(row):
     row_dict = {}
     for i in range(len(row)):
         if row[i] == "^":
             dict_name = i
-            new_dict = {
-                "beam_positions": {i-1, i+1}
-            }
+            new_dict = {"beam_positions": {i - 1, i + 1}}
             row_dict[dict_name] = new_dict
     return row_dict
+
 
 def create_overall_dictionary(input):
     overall_dictionary = {}
@@ -17,6 +17,7 @@ def create_overall_dictionary(input):
         row_dictionary = create_row_dictionary_splitter_beam_positions(input[i])
         overall_dictionary[i] = row_dictionary
     return overall_dictionary
+
 
 def get_input():
     overall_list = []

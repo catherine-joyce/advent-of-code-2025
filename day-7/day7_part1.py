@@ -22,6 +22,7 @@ def beam_split(row, beam_positions, split_number):
             new_beam_positions.add(position + 1)
             new_beam_positions.add(position - 1)
             split_number += 1
+    print(new_beam_positions)
     return new_beam_positions, split_number
 
 
