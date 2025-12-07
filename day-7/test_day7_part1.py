@@ -34,6 +34,7 @@ def test_beam_split_first_time():
     assert beam_positions == {6, 8}
     assert split_number == 1
 
+
 def test_beam_split_two_rows():
     input = [
         [".", ".", ".", ".", ".", ".", ".", "S", ".", ".", ".", ".", ".", ".", "."],

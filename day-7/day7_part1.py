@@ -24,14 +24,16 @@ def beam_split(row, beam_positions, split_number):
             split_number += 1
     return new_beam_positions, split_number
 
+
 def get_overall_split_number(input):
     index = get_S_index(input)
     beam_positions = {index}
     split_number = 0
     for i in range(1, len(input)):
-        beam_positions, split_number = beam_split(input[i], beam_positions, split_number)
+        beam_positions, split_number = beam_split(
+            input[i], beam_positions, split_number
+        )
     return split_number
-
 
 
 if __name__ == "__main__":
