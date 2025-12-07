@@ -31,8 +31,18 @@ test_data = {
 
 def create_edges_list(test_data):
     edges = []
-    for i in range(len(data)):
-        for splitter_position, beam_positions in data[i].items()
+    for i in range(1, 3):
+        for splitter_position, beam_positions in test_data[i].items():
+            current_beam_positions = test_data[i][splitter_position]["beam_positions"]
+            for below_row_splitter_position, below_row_beam_positions in test_data[i+1].items():
+                if below_row_splitter_position in current_beam_positions:
+                    start = f"{i}{splitter_position}"
+                    end = f"{i+1}{below_row_splitter_position}"
+                    edges.append([int(start), int(end)])
+    return edges
+
+edges_list = create_edges_list(test_data)
+print(edges_list) 
 
 
     # for i in range(len(data), 1, -1):
